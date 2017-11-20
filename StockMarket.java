@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.*;
+import java.text.*;
 
 public class StockMarket implements Runnable
 {
@@ -162,6 +163,9 @@ public class StockMarket implements Runnable
                 System.out.println("UPD:"+stockData[i][0]+":"+stockData[i][1]+":"+stockData[i][3]);
             }
         }
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        System.out.println("TIME:" + sdf.format(cal.getTime()));
     }
 }
 
