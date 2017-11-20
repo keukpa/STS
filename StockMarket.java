@@ -6,14 +6,18 @@ public class StockMarket implements Runnable
 {
 
     private static StockMarket ref;
-    private String[][] stockData; 
-    private String filename = "stocks.csv";
+    private String[][] stockData;
+    private String[][] stockDataDeltas;
+
+    private String filename = "ftse.csv";
     private String delims = ",";
     private String[] tokens;
 
     private double[][] registeredIDs = new double[2000][2];
 
     private Random rnd;
+
+    private int shareDaltaCount = 3;
 
     private final long PERIOD = 15000L;
     private long lastTime;
@@ -22,6 +26,7 @@ public class StockMarket implements Runnable
     private StockMarket()
     {
         stockData = new String[10][4];
+        stockDataDeltas = new String[10][2503];
         populateStockData();
         lastTime = System.currentTimeMillis() - PERIOD;
         rnd = new Random();
@@ -106,7 +111,7 @@ public class StockMarket implements Runnable
                 tokens = line.split(delims);
                 for(int i = 0; i < tokens.length; i++)
                 {
-                    stockData[count][i] = tokens[i];
+                    stockDataDeltas[count][i] = tokens[i];
                 }
                 count++;
             }
@@ -117,8 +122,20 @@ public class StockMarket implements Runnable
         }
 
         for(int i = 0; i < 10; i++)
-            for(int j = 0; j < 3; j++)
-                System.out.println("populate: "+i+":"+j+" with: "+stockData[i][j]);
+        {
+            stockData[i][0] = stockDataDeltas[i][0];
+            stockData[i][1] = stockDataDeltas[i][1];
+            stockData[i][2] = stockDataDeltas[i][2];
+            stockData[i][3] = stockDataDeltas[i][3];
+        }
+
+        for(int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                System.out.println("populate: " + i + ":" + j + " with: " + stockData[i][j]);
+            }
+        }
 
     }
 
@@ -147,30 +164,25 @@ public class StockMarket implements Runnable
 
     private void updateStockPrice()
     {
-        double change = 0.0;
+        NumberFormat formatter = new DecimalFormat("#0.00");
+
+        if(shareDaltaCount < 2503)
+        {
+            shareDaltaCount++;
+        }
 
         for(int i = 0; i < stockData.length; i++)
         {
-            if(rnd.nextBoolean())
-            {
-                change = rnd.nextInt(11)*rnd.nextDouble();
-                double aVal = Double.parseDouble(stockData[i][1]);
+            double deltaChange = Double.parseDouble(stockDataDeltas[i][shareDaltaCount]);
+            stockData[i][3] = "" + deltaChange;
 
-                if(rnd.nextBoolean())
-                {
-                      aVal += change;
-                      stockData[i][3] = ""+change;
-                }
-                else
-                {
-                      aVal -= change;
-                      stockData[i][3] = ""+(change * -1);
-                }
-                      stockData[i][1] = ""+aVal;
+            double newPrice = Double.parseDouble(stockData[i][1]) + deltaChange;
+            stockData[i][1] = "" + newPrice;
 
-                System.out.println("UPD:"+stockData[i][0]+":"+stockData[i][1]+":"+stockData[i][3]);
-            }
+
+            System.out.format("UPD:%s:%.2f:%.2f \n", stockData[i][0], Double.parseDouble(stockData[i][1]), Double.parseDouble(stockData[i][3]));
         }
+
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         System.out.println("TIME:" + sdf.format(cal.getTime()));
