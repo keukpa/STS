@@ -112,11 +112,12 @@ class ClientConnect extends Thread
                 else if(inputText.equals("HELP"))
                 {
                     out.println("Commands:");
-                    out.println("REGI:");
-                    out.println("BUY:");
-                    out.println("SELL:");
-                    out.println("EXIT:");
-                    out.println("DISP:");
+                    out.println("REGI: - Allows authentication with the system.");
+                    out.println("BUY: - Allows the purchasing of shares.");
+                    out.println("SELL: - Allows the selling of shares.");
+                    out.println("EXIT: - Exit the system (lose all shares and funds).");
+                    out.println("DISP: - Display current Stock market values.");
+                    out.println("CASH: - Display your remaining cash balance (not including shares owned).");
                     out.println("");
                 }
                 else
