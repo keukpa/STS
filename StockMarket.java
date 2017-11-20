@@ -15,7 +15,7 @@ public class StockMarket implements Runnable
 
     private Random rnd;
 
-    private final long PERIOD = 5000L;
+    private final long PERIOD = 15000L;
     private long lastTime;
     private long currentTime;
 
@@ -138,7 +138,7 @@ public class StockMarket implements Runnable
             {
                 lastTime = currentTime;
 
-                System.out.println("Stock Market updated each 5s.");
+                System.out.println("Stock Market updated each 15s.");
                 updateStockPrice();
             }
         }
