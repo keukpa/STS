@@ -43,7 +43,7 @@ public class StockMarket implements Runnable
         
     }
 
-    public boolean registerUser(String aID)
+    public boolean registerUser(int aID)
     {
         int count = 0;
 

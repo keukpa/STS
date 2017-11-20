@@ -13,11 +13,17 @@ class ClientConnect extends Thread
     protected boolean isRegistered = false;
     protected String[] tokens;
 
+    Calendar cal;
+    SimpleDateFormat sdf;
+
     public ClientConnect(Socket aSocket, StockMarket aSM)
     {
         clientSocket = aSocket;
         mySMRef = aSM;
         start();
+
+        cal = Calendar.getInstance();
+        sdf = new SimpleDateFormat("HH:mm:ss");
     }
 
     public void run()
@@ -61,8 +67,7 @@ class ClientConnect extends Thread
 
                     out.println("REGI:SUCCESS:"+ID);
                     out.println("");
-                    mySMRef.registerUser(ID);
-                    isRegistered = false;
+                    isRegistered = mySMRef.registerUser(Integer.parseInt(ID));
                 }
                 else if(inputText.equals("DISP"))
                 {   // Display Stock Market
