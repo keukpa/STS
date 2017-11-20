@@ -71,7 +71,7 @@ class ClientConnect extends Thread
                 }
                 else if(inputText.equals("DISP"))
                 {   // Display Stock Market
-                    if(mySMRef.checkID(tokens[3]))
+                    if(mySMRef.checkID(Integer.parseInt(tokens[3])))
                     {
                         String [][] aStock = mySMRef.getStockMarketState();
                         //objectOut.writeObject(mySMRef.getStockMarketState());
@@ -92,7 +92,7 @@ class ClientConnect extends Thread
                 {
                     tokens = inputText.split(":");
                     
-                    if(mySMRef.checkID(tokens[3]))
+                    if(mySMRef.checkID(Integer.parseInt(tokens[3])))
                     {
                         out.println("ACK:BOUGHT:"+ tokens[2] + " shares:In " + tokens[1] + ":@" + mySMRef.checkSharePrice(tokens[1]));
                     }
