@@ -63,7 +63,12 @@ public class StockMarket implements Runnable
             if(stockData[i][0].equals(aCompany))
             {
                 temp = stockData[i][1];
-                break;
+                System.out.println("DEBUG BUY");
+            }
+            else
+            {
+                System.out.println("ERR: Company not found @["+i+"]");
+                temp = "ERR: Company not found.";
             }
         }
         return temp;
