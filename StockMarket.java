@@ -69,18 +69,17 @@ public class StockMarket implements Runnable
     public boolean checkID(String anID)
     {
         int count = 0;
-        while(registeredIDs[count] != null)
+        boolean isRegistered = false;
+
+        while((int)registeredIDs[count][0] != 0 && count < registeredIDs.length)
         {
-            if(registeredIDs[count] == anID)
+            if((int)registeredIDs[count][0] == anID)
             {
-                return true;
+                isRegistered = true;
             }
-            else
-            {
-                count++;
-            }
+            count++;
         }
-        return false;
+        return isRegistered;
     }
 
     private void populateStockData()
