@@ -168,22 +168,3 @@ public class StockMarket implements Runnable
         System.out.println("TIME:" + sdf.format(cal.getTime()));
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
