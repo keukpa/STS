@@ -11,7 +11,7 @@ public class StockMarket implements Runnable
     private String delims = ",";
     private String[] tokens;
 
-    private String[] registeredIDs = new String[20];
+    private double[][] registeredIDs = new double[2000][2];
 
     private Random rnd;
 
