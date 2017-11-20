@@ -41,13 +41,16 @@ public class StockMarket implements Runnable
     public boolean registerUser(String aID)
     {
         int count = 0;
-        while(registeredIDs[count] != null)
+
+        while((int)registeredIDs[count][0] != 0)
         {
             count++;
         }
-        if(count < 20)
+        if(count < 2000)
         {
-            registeredIDs[count] = aID;
+            registeredIDs[count][0] = aID;
+            registeredIDs[count][1] = 1000000.00;
+
         }
         return true;
     }
@@ -69,17 +72,18 @@ public class StockMarket implements Runnable
     public boolean checkID(String anID)
     {
         int count = 0;
-        boolean isRegistered = false;
-
-        while((int)registeredIDs[count][0] != 0 && count < registeredIDs.length)
+        while(registeredIDs[count] != null)
         {
-            if((int)registeredIDs[count][0] == anID)
+            if(registeredIDs[count] == anID)
             {
-                isRegistered = true;
+                return true;
             }
-            count++;
+            else
+            {
+                count++;
+            }
         }
-        return isRegistered;
+        return false;
     }
 
     private void populateStockData()
