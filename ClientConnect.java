@@ -101,9 +101,9 @@ class ClientConnect extends Thread
                 {
                     tokens = inputText.split(":");
                     
-                    if(mySMRef.checkID(Integer.parseInt(tokens[1])))
+                    if(mySMRef.checkID(Integer.parseInt(tokens[3])))
                     {
-                        out.println("ACK:BOUGHT:"+ tokens[2] + " shares:In " + tokens[1] + ":@" + mySMRef.checkSharePrice(tokens[1]));
+                        out.println(mySMRef.buyShares(tokens));
                     }
                     else
                     {

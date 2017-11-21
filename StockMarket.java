@@ -60,6 +60,64 @@ public class StockMarket implements Runnable
         return true;
     }
 
+    public String buyShares(String[] aTokens)
+    {
+        String[] tokens1 = aTokens;
+        String tempStr = "";
+
+        double sharePurchase = Double.parseDouble(tokens1[2]);
+
+        int companyIndex = -1;
+        int userIndex = -1;
+
+        for(int i = 0; i < stockData.length; i++)
+        {
+            if(stockData[i][0].equals(tokens1[1]))
+            {
+                companyIndex = i;
+                System.out.println("DEBUG: Company at: " + i);
+            }
+        }
+        if(companyIndex < 0)
+        {
+            System.out.println("DEBUG:ERR: Company not found");
+        }
+
+        for(int i = 0; i < registeredIDs.length; i++)
+        {
+            if(registeredIDs[i][0] == Double.parseDouble(tokens1[3]))
+            {
+                userIndex = i;
+                System.out.println("DEBUG: User at: " + i);
+            }
+        }
+
+        if(userIndex < 0)
+        {
+            System.out.println("DEBUG:ERR: User not found");
+        }
+
+
+        if((companyIndex != -1) && (userIndex != -1))
+        {
+            sharePurchase = sharePurchase * Double.parseDouble(stockData[companyIndex][1]);
+        }
+
+        if(sharePurchase <= registeredIDs[userIndex][1])
+        {
+            System.out.println("DEBUG here too!");
+            registeredIDs[userIndex][1] = registeredIDs[userIndex][1] - sharePurchase;
+            tempStr = "ACK:BUY:" + tokens1[2] + ":" + tokens1[1] + ":COST:" + sharePurchase;
+        }
+        else
+        {
+            tempStr = "ERR:Insufficient Funds";
+        }
+
+        return tempStr;
+
+    }
+
     public String checkCash(String aToken)
     {
         int userIndex = -1;
