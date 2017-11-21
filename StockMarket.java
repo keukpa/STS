@@ -60,6 +60,23 @@ public class StockMarket implements Runnable
         return true;
     }
 
+    public String checkCash(String aToken)
+    {
+        int userIndex = -1;
+        String tempStr = "";
+
+        for(int i = 0; i < registeredIDs.length; i++)
+        {
+            if(registeredIDs[i][0] == Double.parseDouble(aToken))
+            {
+                userIndex = i;
+                System.out.println("DEBUG: User at: " + i);
+                tempStr = "MSG:BALANCE:"+registeredIDs[i][1];
+            }
+        }
+        return tempStr;
+    }
+
     public String checkSharePrice(String aCompany)
     {
         String temp = "";

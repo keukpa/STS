@@ -114,6 +114,22 @@ class ClientConnect extends Thread
                     }
                     out.println("");
                 }
+                else if(inputText.startsWith("CASH"))
+                {
+                    tokens = inputText.split(":");
+
+                    if(mySMRef.checkID(Integer.parseInt(tokens[1])) == true)
+                    {
+                        String tempStr = mySMRef.checkCash(tokens[1]);
+                        out.println(tempStr);
+                    }
+                    else
+                    {
+                        out.println("ERR:Not Registered");
+                    }
+                    out.println("");
+
+                }
                 else if(inputText.equals("HELP"))
                 {
                     out.println("Commands:");
