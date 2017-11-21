@@ -85,12 +85,15 @@ class ClientConnect extends Thread
                         {                            
                             out.println("STK:"+aStock[i][0]+":"+aStock[i][1]+":"+aStock[i][3]);
                         }
+                        System.out.println("TIME:" + sdf.format(cal.getTime()) );
+                        out.println("TIME:" + sdf.format(cal.getTime()) );
                         out.println("END:EOF");
                         out.println("");
                     }
                     else
                     {
                         out.println("ERR:Not Registered");
+                        System.out.println("User not registered.");
                         out.println("");
                     }
                 }
