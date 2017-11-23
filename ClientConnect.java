@@ -113,7 +113,7 @@ class ClientConnect extends Thread
                     }
                     out.println("");
                 }
-                else if(inputText.equals("SELL"))
+                else if(inputText.startsWith("SELL"))
                 {
                     tokens = inputText.split(":");
 
